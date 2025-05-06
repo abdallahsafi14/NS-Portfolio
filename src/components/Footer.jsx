@@ -86,8 +86,15 @@ const Footer = () => {
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
           <p>
-            &copy; {new Date().getFullYear()} Developed by Abdallah Safi. All
-            rights reserved.
+            &copy; {new Date().getFullYear()} Developed by{" "}
+            <a
+              href="https://abdullahsafi3.netlify.app/"
+              className="hover:text-blue-700 duration-100"
+            >
+              {" "}
+              Abdallah Safi{" "}
+            </a>
+            . All rights reserved.
           </p>
         </div>
       </div>
