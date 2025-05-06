@@ -56,7 +56,7 @@ const Footer = () => {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="bg-dark text-light py-12"
+      className="bg-dark text-light pt-6"
     >
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
@@ -84,7 +84,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center">
+        <div className="border-t border-gray-700 mt-8 py-8 text-center">
           <p>
             &copy; {new Date().getFullYear()} Developed by{" "}
             <a

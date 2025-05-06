@@ -13,10 +13,10 @@ const skills = [
 
 const About = () => {
   return (
-    <section id="about" className="py-20 ">
-      <div className="container mx-auto px-4 ">
+    <section id="about" className="py-20 overflow-hidden">
+      <div className="container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
@@ -30,7 +30,7 @@ const About = () => {
 
         <div className="flex flex-col md:flex-row gap-12">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
@@ -54,7 +54,7 @@ const About = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
