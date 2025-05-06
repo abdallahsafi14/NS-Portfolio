@@ -86,7 +86,8 @@ const Footer = () => {
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
           <p>
-            &copy; {new Date().getFullYear()} John Doe. All rights reserved.
+            &copy; {new Date().getFullYear()} Developed by Abdallah Safi. All
+            rights reserved.
           </p>
         </div>
       </div>
