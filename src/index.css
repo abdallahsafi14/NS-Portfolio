@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .bg-card {
+    background-color: #111111;
+  }
+}
+
+body {
+  @apply bg-dark text-light;
+  font-family: "Inter", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.card {
+  @apply bg-card rounded-xl border border-gray-700 shadow-lg;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  @apply shadow-xl border-gray-600;
+  transform: translateY(-5px);
+}
