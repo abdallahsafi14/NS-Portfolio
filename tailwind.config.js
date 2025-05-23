@@ -13,6 +13,9 @@ export default {
           500: "#666666", // Lighter gray
         },
       },
+      screens: {
+        "custom-xl": "1170px",
+      },
     },
   },
   plugins: [],

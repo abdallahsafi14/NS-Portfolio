@@ -75,26 +75,13 @@ export default function ClickVideoReveal({ onComplete }) {
         <div className="flex flex-col items-center justify-center ">
           <h1
             ref={textRef}
-            className="text-6xl font-bold pointer-events-none text-center"
+            className="text-6xl font-bold pointer-events-none text-center bg-black custom-xl:bg-transparent text-white custom-xl:text-black py-2"
             style={{
               transform: `scale(${textScale})`,
               transition: animationActive ? "transform 0s linear" : "none",
             }}
           >
-            <span
-              className="text-transparent pointer-events-none"
-              style={{
-                backgroundImage: `url(${firstVideo})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                color: "black",
-                padding: "0.5rem",
-              }}
-            >
-              LET'S BRING LIFE TO YOUR PROJECTS.
-            </span>
+            LET'S BRING LIFE TO YOUR PROJECTS.
           </h1>
         </div>
 
