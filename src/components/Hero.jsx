@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="h-[80vh] flex justify-center items-center bg-black"
+      className="min-h-screen flex justify-center items-center bg-black  pb-8"
       style={{
         fontFamily:
           "'Playfair Display', 'Cormorant Garamond', 'Crimson Text', serif",
@@ -21,15 +21,21 @@ const Hero = () => {
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.2 }}
-            className="text-5xl md:text-7xl mb-6 text-white tracking-wide"
+            className="mb-6 text-white tracking-wide"
             style={{
               fontWeight: 300,
               letterSpacing: "0.02em",
               lineHeight: "1.1",
+              fontSize: "clamp(3rem, 8vw, 7rem)",
             }}
           >
             <span className="block mb-2">Nour</span>
-            <span className="text-gray-300 text-4xl md:text-5xl font-thin tracking-wider">
+            <span
+              className="text-gray-300 font-thin tracking-wider block"
+              style={{
+                fontSize: "clamp(2.25rem, 6vw, 5rem)",
+              }}
+            >
               ALMASRI
             </span>
           </motion.h1>
@@ -45,10 +51,11 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1 }}
-            className="text-xl md:text-2xl mb-8 text-gray-200 tracking-widest uppercase"
+            className="mb-8 text-gray-200 tracking-widest uppercase"
             style={{
               fontWeight: 200,
               letterSpacing: "0.15em",
+              fontSize: "clamp(1rem, 2.5vw, 1.5rem)",
             }}
           >
             Architecture Student
@@ -58,11 +65,12 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.2 }}
-            className="text-lg md:text-xl mb-4 text-gray-300 max-w-3xl mx-auto leading-relaxed"
+            className="mb-4 text-gray-300 max-w-3xl mx-auto leading-relaxed"
             style={{
               fontWeight: 300,
               lineHeight: "1.6",
               fontStyle: "italic",
+              fontSize: "clamp(1rem, 2vw, 1.25rem)",
             }}
           >
             With a passion for visual storytelling and form-making, I strive to
@@ -73,10 +81,11 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.4 }}
-            className="text-base md:text-lg mb-6 text-gray-400 max-w-2xl mx-auto leading-relaxed"
+            className="mb-6 text-gray-400 max-w-2xl mx-auto leading-relaxed"
             style={{
               fontWeight: 300,
               lineHeight: "1.6",
+              fontSize: "clamp(0.875rem, 1.8vw, 1.125rem)",
             }}
           >
             Beyond my academic path, I've contributed to real-world projects,
@@ -87,10 +96,11 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.6 }}
-            className="text-base md:text-lg mb-12 text-gray-400 max-w-2xl mx-auto leading-relaxed"
+            className="mb-12 text-gray-400 max-w-2xl mx-auto leading-relaxed"
             style={{
               fontWeight: 300,
               lineHeight: "1.6",
+              fontSize: "clamp(0.875rem, 1.8vw, 1.125rem)",
             }}
           >
             I specialize in transforming 2D plans into detailed 3D models and
@@ -102,11 +112,11 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.8 }}
-            className="flex gap-6 justify-center"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center"
           >
             <motion.a
               href="#contact"
-              className="inline-block bg-white text-black px-8 py-4 font-light tracking-wider uppercase text-sm border border-white transition-all duration-300"
+              className="w-full sm:w-auto inline-block bg-white text-black px-6 sm:px-8 py-3 sm:py-4 font-light tracking-wider uppercase border border-white transition-all duration-300"
               whileHover={{
                 scale: 1.02,
                 backgroundColor: "transparent",
@@ -115,13 +125,14 @@ const Hero = () => {
               whileTap={{ scale: 0.98 }}
               style={{
                 letterSpacing: "0.1em",
+                fontSize: "clamp(0.75rem, 1.5vw, 0.875rem)",
               }}
             >
               Get in Touch
             </motion.a>
             <motion.a
               href="#projects"
-              className="inline-block border border-white text-white px-8 py-4 font-light tracking-wider uppercase text-sm transition-all duration-300"
+              className="w-full sm:w-auto inline-block border border-white text-white px-6 sm:px-8 py-3 sm:py-4 font-light tracking-wider uppercase transition-all duration-300"
               whileHover={{
                 scale: 1.02,
                 backgroundColor: "white",
@@ -130,6 +141,7 @@ const Hero = () => {
               whileTap={{ scale: 0.98 }}
               style={{
                 letterSpacing: "0.1em",
+                fontSize: "clamp(0.75rem, 1.5vw, 0.875rem)",
               }}
             >
               Explore Portfolio

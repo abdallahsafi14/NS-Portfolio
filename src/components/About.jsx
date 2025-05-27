@@ -15,13 +15,13 @@ const About = () => {
   return (
     <section
       id="about"
-      className="py-24 overflow-hidden bg-black"
+      className=" overflow-hidden bg-black"
       style={{
         fontFamily:
           "'Playfair Display', 'Cormorant Garamond', 'Crimson Text', serif",
       }}
     >
-      <div className="container mx-auto px-8">
+      <div className="container mx-auto px-8  ">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -31,7 +31,7 @@ const App = () => {
           {" "}
           {/* Increased z-index */}
           <Header />
-          <main className="flex-1">
+          <main className="flex-1 flex flex-col justify-start">
             <Hero />
             <About />
             <Projects />
