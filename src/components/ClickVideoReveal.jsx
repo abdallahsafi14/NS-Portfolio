@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import firstVideo from "../../public/second-video.mp4";
-import { FaLocationArrow } from "react-icons/fa";
+import { MdArrowForward } from "react-icons/md";
+import ShapeBlur from "./ShapeBlur";
 
 export default function ClickVideoReveal({ onComplete }) {
   const [animationProgress, setAnimationProgress] = useState(0);
@@ -9,7 +10,6 @@ export default function ClickVideoReveal({ onComplete }) {
   const firstVideoRef = useRef(null);
   const textRef = useRef(null);
   const buttonRef = useRef(null);
-  const arrowRef = useRef(null); // New ref for arrow
 
   const handleClick = () => {
     setAnimationActive(true);
@@ -56,23 +56,8 @@ export default function ClickVideoReveal({ onComplete }) {
         const translateY = deltaY * strength * 0.3;
 
         buttonRef.current.style.transform = `translate(${translateX}px, ${translateY}px)`;
-
-        if (arrowRef.current) {
-          arrowRef.current.style.transform = `translate(${
-            translateX * 0.8
-          }px, ${translateY * 0.8}px) rotate(-45deg)`; // stronger movement
-        }
-
-        if (arrowRef.current) {
-          arrowRef.current.style.transform = `translate(${
-            translateX * 0.5
-          }px, ${translateY * 0.5}px)`; // subtle motion
-        }
       } else {
         buttonRef.current.style.transform = "translate(0, 0)";
-        if (arrowRef.current) {
-          arrowRef.current.style.transform = "translate(0, 0)";
-        }
       }
     };
 
@@ -112,7 +97,7 @@ export default function ClickVideoReveal({ onComplete }) {
           transition: "opacity 0.5s ease-in-out",
         }}
       >
-        <div className="flex flex-col items-center justify-center ">
+        <div className="flex flex-col items-center justify-center">
           <h1
             ref={textRef}
             className="text-6xl font-bold pointer-events-none text-center bg-black custom-xl:bg-transparent text-white custom-xl:text-black py-2"
@@ -128,15 +113,28 @@ export default function ClickVideoReveal({ onComplete }) {
         {!animationActive && (
           <div
             ref={buttonRef}
-            className="relative md:top-[200px] top-[100px]  cursor-pointer flex flex-col items-center justify-center p-5 z-20 w-[120px] h-[120px] rounded-full bg-black text-white"
             onClick={handleClick}
+            className="group relative md:top-[150px] top-[60px] z-20 w-[300px] h-[300px] rounded-2xl flex items-center justify-center cursor-pointer transition-transform duration-300"
           >
-            <p className="mb-2 font-medium">Click Here</p>
+            <ShapeBlur
+              variation={0}
+              pixelRatioProp={window.devicePixelRatio || 1}
+              shapeSize={1.2}
+              roundness={0.5}
+              borderSize={0.2}
+              circleSize={0.5}
+              circleEdge={2}
+            />
+
+            {/* Centered Arrow */}
             <div
-              ref={arrowRef}
-              className="w-8 h-8 transition-transform duration-150 ease-out flex justify-center items-center"
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              style={{ pointerEvents: "none" }}
             >
-              <FaLocationArrow size={22} />
+              <MdArrowForward
+                size={40}
+                className="text-black transform -rotate-45" // Rotate the arrow 45 degrees
+              />
             </div>
           </div>
         )}
