@@ -90,7 +90,7 @@ export default function ClickVideoReveal({ onComplete }) {
             className="relative top-[200px] cursor-pointer flex flex-col items-center justify-center p-5 animate-bounce z-20 w-[120px] h-[120px] rounded-full bg-black text-white"
             onClick={handleClick}
           >
-            <p className="mb-2 font-medium">Click Here</p>
+            <p className="mb-2 font-medium ">Click Here</p>
             <svg
               className="w-8 h-8"
               fill="none"
@@ -111,5 +111,3 @@ export default function ClickVideoReveal({ onComplete }) {
     </div>
   );
 }
-
-// App component remains the same as in Solution 1

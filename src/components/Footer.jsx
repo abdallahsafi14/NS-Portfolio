@@ -8,8 +8,8 @@ const socialLinks = [
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
+        width="20"
+        height="20"
         viewBox="0 0 24 24"
         fill="currentColor"
       >
@@ -23,8 +23,8 @@ const socialLinks = [
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
+        width="20"
+        height="20"
         viewBox="0 0 24 24"
         fill="currentColor"
       >
@@ -38,8 +38,8 @@ const socialLinks = [
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
+        width="20"
+        height="20"
         viewBox="0 0 24 24"
         fill="currentColor"
       >
@@ -54,49 +54,128 @@ const Footer = () => {
     <motion.footer
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 1, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="bg-dark text-light pt-6"
+      className="bg-black pt-16 pb-8"
+      style={{
+        fontFamily:
+          "'Playfair Display', 'Cormorant Garamond', 'Crimson Text', serif",
+      }}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-6 md:mb-0">
-            <h3 className="text-2xl font-bold text-light">Noor Almasri</h3>
-            <p className="mt-2">Architecture Engineer</p>
-          </div>
+      <div className="container mx-auto px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="flex flex-col md:flex-row justify-between items-center mb-12"
+        >
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="mb-8 md:mb-0 text-center md:text-left"
+          >
+            <h3
+              className="text-2xl md:text-3xl text-white tracking-wide mb-2"
+              style={{
+                fontWeight: 400,
+                letterSpacing: "0.02em",
+              }}
+            >
+              Noor Almasri
+            </h3>
+            <p
+              className="text-gray-400 tracking-wide"
+              style={{
+                fontWeight: 300,
+                letterSpacing: "0.05em",
+              }}
+            >
+              Architecture Engineer
+            </p>
+          </motion.div>
 
-          <div className="flex space-x-6">
-            {socialLinks.map((link) => (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="flex space-x-6"
+          >
+            {socialLinks.map((link, index) => (
               <motion.a
                 key={link.name}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={link.name}
-                className="text-light hover:text-light transition-colors"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+                viewport={{ once: true }}
+                className="group"
                 whileHover={{ y: -3 }}
-                whileTap={{ scale: 0.9 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <span className="sr-only">{link.name}</span>
-                {link.icon}
+                <div className="w-12 h-12 border border-gray-700 flex items-center justify-center text-gray-400 hover:border-white hover:text-white transition-all duration-300 group-hover:bg-white group-hover:text-black">
+                  <span className="sr-only">{link.name}</span>
+                  {link.icon}
+                </div>
               </motion.a>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className="border-t border-gray-700 mt-8 py-8 text-center">
-          <p>
-            &copy; {new Date().getFullYear()} Developed by{" "}
-            <a
-              href="https://abdullahsafi3.netlify.app/"
-              className="hover:text-blue-700 duration-100"
-            >
-              {" "}
-              Abdallah Safi{" "}
-            </a>
-            . All rights reserved.
+        <motion.div
+          initial={{ opacity: 0, width: 0 }}
+          whileInView={{ opacity: 1, width: "100%" }}
+          transition={{ duration: 1, delay: 0.6 }}
+          viewport={{ once: true }}
+          className="h-px bg-gray-800 mb-8"
+        />
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          viewport={{ once: true }}
+          className="flex flex-col md:flex-row justify-between items-center text-center md:text-left"
+        >
+          <p
+            className="text-gray-500 text-sm mb-4 md:mb-0"
+            style={{
+              fontWeight: 300,
+              letterSpacing: "0.02em",
+            }}
+          >
+            &copy; {new Date().getFullYear()} Noor Almasri. All rights reserved.
           </p>
-        </div>
+
+          <motion.p
+            className="text-gray-500 text-sm"
+            style={{
+              fontWeight: 300,
+              letterSpacing: "0.02em",
+            }}
+            whileHover={{ color: "#ffffff" }}
+            transition={{ duration: 0.3 }}
+          >
+            Developed by{" "}
+            <motion.a
+              href="https://abdullahsafi3.netlify.app/"
+              className="text-gray-400 hover:text-white transition-colors duration-300 border-b border-transparent hover:border-white"
+              style={{
+                letterSpacing: "0.02em",
+              }}
+              whileHover={{ y: -1 }}
+              transition={{ duration: 0.2 }}
+            >
+              Abdallah Safi
+            </motion.a>
+          </motion.p>
+        </motion.div>
       </div>
     </motion.footer>
   );

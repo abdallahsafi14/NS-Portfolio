@@ -14,46 +14,146 @@ const skills = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-20 ">
-      <div className="container mx-auto px-4">
+    <section
+      id="skills"
+      className="py-24 bg-black"
+      style={{
+        fontFamily:
+          "'Playfair Display', 'Cormorant Garamond', 'Crimson Text', serif",
+      }}
+    >
+      <div className="container mx-auto px-8">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 1, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-            My Skills
-          </h2>
-          <div className="w-20 h-1 bg-light mx-auto"></div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl mb-6 text-white tracking-wide"
+            style={{
+              fontWeight: 300,
+              letterSpacing: "0.05em",
+            }}
+          >
+            Capabilities
+          </motion.h2>
+          <motion.div
+            initial={{ opacity: 0, width: 0 }}
+            whileInView={{ opacity: 1, width: "80px" }}
+            transition={{ duration: 1, delay: 0.6 }}
+            viewport={{ once: true }}
+            className="h-px bg-white mx-auto"
+          />
         </motion.div>
 
-        <div className="max-w-3xl mx-auto">
-          {skills.map((skill, index) => (
-            <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="mb-6"
-            >
-              <div className="flex justify-between mb-1">
-                <span className="font-medium text-white">{skill.name}</span>
-                <span className="text-white">{skill.level}%</span>
-              </div>
-              <div className="w-full bg-gray-300 dark:bg-gray-600 rounded-full h-2.5">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {skills.map((skill, index) => (
+              <motion.div
+                key={skill.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <div className="flex justify-between items-end mb-4">
+                  <motion.h3
+                    className="text-lg md:text-xl text-white tracking-wide group-hover:text-gray-200 transition-colors duration-300"
+                    style={{
+                      fontWeight: 400,
+                      letterSpacing: "0.02em",
+                    }}
+                  >
+                    {skill.name}
+                  </motion.h3>
+                  <motion.span
+                    className="text-sm text-gray-400 uppercase tracking-widest"
+                    style={{
+                      letterSpacing: "0.1em",
+                      fontWeight: 300,
+                    }}
+                  >
+                    {skill.level}%
+                  </motion.span>
+                </div>
+
+                <div className="relative">
+                  <div className="w-full h-px bg-gray-700 relative">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.level}%` }}
+                      transition={{
+                        duration: 1.5,
+                        delay: index * 0.1 + 0.3,
+                        ease: "easeOut",
+                      }}
+                      viewport={{ once: true }}
+                      className="h-px bg-white absolute top-0 left-0 group-hover:bg-gray-200 transition-colors duration-300"
+                    />
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: index * 0.1 + 1.8,
+                      }}
+                      viewport={{ once: true }}
+                      className="absolute w-2 h-2 bg-white rounded-full -top-0.5 group-hover:bg-gray-200 transition-colors duration-300"
+                      style={{
+                        left: `${skill.level}%`,
+                        transform: "translateX(-50%)",
+                      }}
+                    />
+                  </div>
+                </div>
+
                 <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${skill.level}%` }}
-                  transition={{ duration: 1, delay: index * 0.1 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 + 0.8 }}
                   viewport={{ once: true }}
-                  className="h-2.5 rounded-full bg-light"
-                ></motion.div>
-              </div>
-            </motion.div>
-          ))}
+                  className="mt-4"
+                >
+                  <div className="flex justify-between text-xs text-gray-500 uppercase tracking-widest">
+                    <span style={{ letterSpacing: "0.08em" }}>Beginner</span>
+                    <span style={{ letterSpacing: "0.08em" }}>
+                      Intermediate
+                    </span>
+                    <span style={{ letterSpacing: "0.08em" }}>Advanced</span>
+                    <span style={{ letterSpacing: "0.08em" }}>Expert</span>
+                  </div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1 }}
+            viewport={{ once: true }}
+            className="text-center mt-16"
+          >
+            <p
+              className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed"
+              style={{
+                fontWeight: 300,
+                lineHeight: "1.7",
+                fontStyle: "italic",
+              }}
+            >
+              Proficiency developed through rigorous academic training, hands-on
+              project experience, and continuous exploration of emerging design
+              technologies and methodologies.
+            </p>
+          </motion.div>
         </div>
       </div>
     </section>

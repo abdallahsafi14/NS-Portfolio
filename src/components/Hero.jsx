@@ -4,62 +4,137 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="h-[80vh] flex justify-center items-center bg-dark"
+      className="h-[80vh] flex justify-center items-center bg-black"
+      style={{
+        fontFamily:
+          "'Playfair Display', 'Cormorant Garamond', 'Crimson Text', serif",
+      }}
     >
-      <div className="container mx-auto px-4 text-center md:text-start">
+      <div className="container mx-auto px-8 text-center">
         <motion.div
-          initial={{ opacity: 0, y: -50 }}
+          initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="md:w-1/2"
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="max-w-4xl mx-auto"
         >
           <motion.h1
-            initial={{ opacity: 0, y: -50 }}
+            initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-6xl font-bold mb-4 text-white"
+            transition={{ duration: 1.2, delay: 0.2 }}
+            className="text-5xl md:text-7xl mb-6 text-white tracking-wide"
+            style={{
+              fontWeight: 300,
+              letterSpacing: "0.02em",
+              lineHeight: "1.1",
+            }}
           >
-            Hi, I'm <span className="text-light">Noor Almasri</span>
+            <span className="block mb-2">Nour</span>
+            <span className="text-gray-300 text-4xl md:text-5xl font-thin tracking-wider">
+              ALMASRI
+            </span>
           </motion.h1>
 
+          <motion.div
+            initial={{ opacity: 0, width: 0 }}
+            animate={{ opacity: 1, width: "120px" }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="h-px bg-white mx-auto mb-8"
+          />
+
           <motion.h2
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-2xl md:text-3xl font-semibold mb-6 text-light"
+            transition={{ duration: 1, delay: 1 }}
+            className="text-xl md:text-2xl mb-8 text-gray-200 tracking-widest uppercase"
+            style={{
+              fontWeight: 200,
+              letterSpacing: "0.15em",
+            }}
           >
-            Architecture Engineer
+            Architecture Student
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: -50 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg mb-8 text-gray-400"
+            transition={{ duration: 1, delay: 1.2 }}
+            className="text-lg md:text-xl mb-4 text-gray-300 max-w-3xl mx-auto leading-relaxed"
+            style={{
+              fontWeight: 300,
+              lineHeight: "1.6",
+              fontStyle: "italic",
+            }}
           >
-            I specialize in designing sustainable, innovative architectural
-            solutions that balance form, function, and aesthetics. From concept
-            to construction, I bring creative visions to life.
+            With a passion for visual storytelling and form-making, I strive to
+            breathe life into every concept I touch.
           </motion.p>
 
-          <div className="flex gap-4 justify-center md:justify-start">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.4 }}
+            className="text-base md:text-lg mb-6 text-gray-400 max-w-2xl mx-auto leading-relaxed"
+            style={{
+              fontWeight: 300,
+              lineHeight: "1.6",
+            }}
+          >
+            Beyond my academic path, I've contributed to real-world projects,
+            combining creativity and functionality in design solutions.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.6 }}
+            className="text-base md:text-lg mb-12 text-gray-400 max-w-2xl mx-auto leading-relaxed"
+            style={{
+              fontWeight: 300,
+              lineHeight: "1.6",
+            }}
+          >
+            I specialize in transforming 2D plans into detailed 3D models and
+            renderings, offering immersive visualizations that bring clients
+            closer to their future spaces.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.8 }}
+            className="flex gap-6 justify-center"
+          >
             <motion.a
               href="#contact"
-              className="inline-block bg-white text-black px-6 py-3 rounded-lg font-medium"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="inline-block bg-white text-black px-8 py-4 font-light tracking-wider uppercase text-sm border border-white transition-all duration-300"
+              whileHover={{
+                scale: 1.02,
+                backgroundColor: "transparent",
+                color: "white",
+              }}
+              whileTap={{ scale: 0.98 }}
+              style={{
+                letterSpacing: "0.1em",
+              }}
             >
               Get in Touch
             </motion.a>
             <motion.a
               href="#projects"
-              className="inline-block border border-gray-600 text-white px-6 py-3 rounded-lg font-medium"
-              whileHover={{ scale: 1.05, backgroundColor: "#222222" }}
-              whileTap={{ scale: 0.95 }}
+              className="inline-block border border-white text-white px-8 py-4 font-light tracking-wider uppercase text-sm transition-all duration-300"
+              whileHover={{
+                scale: 1.02,
+                backgroundColor: "white",
+                color: "black",
+              }}
+              whileTap={{ scale: 0.98 }}
+              style={{
+                letterSpacing: "0.1em",
+              }}
             >
-              Explore Projects
+              Explore Portfolio
             </motion.a>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

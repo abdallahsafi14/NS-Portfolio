@@ -13,99 +13,241 @@ const skills = [
 
 const About = () => {
   return (
-    <section id="about" className="py-20 overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section
+      id="about"
+      className="py-24 overflow-hidden bg-black"
+      style={{
+        fontFamily:
+          "'Playfair Display', 'Cormorant Garamond', 'Crimson Text', serif",
+      }}
+    >
+      <div className="container mx-auto px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 1, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-            About Me
-          </h2>
-          <div className="w-20 h-1 bg-white mx-auto"></div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl mb-6 text-white tracking-wide"
+            style={{
+              fontWeight: 300,
+              letterSpacing: "0.05em",
+            }}
+          >
+            About
+          </motion.h2>
+          <motion.div
+            initial={{ opacity: 0, width: 0 }}
+            whileInView={{ opacity: 1, width: "80px" }}
+            transition={{ duration: 1, delay: 0.6 }}
+            viewport={{ once: true }}
+            className="h-px bg-white mx-auto"
+          />
         </motion.div>
 
-        <div className="flex flex-col md:flex-row gap-12">
+        <div className="flex flex-col lg:flex-row gap-16 max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 1, delay: 0.3 }}
             viewport={{ once: true }}
-            className="md:w-1/2"
+            className="lg:w-1/2"
           >
-            <h3 className="text-2xl font-semibold mb-4 text-white">Who I Am</h3>
-            <p className="mb-4 text-gray-400">
-              I'm an architecture engineer passionate about designing functional
-              and aesthetic spaces. My goal is to blend creativity with
-              engineering precision to create inspiring environments.
-            </p>
-            <p className="mb-4 text-gray-400">
-              I have worked on a variety of architectural projects ranging from
-              residential buildings to urban planning. I believe great design is
-              both innovative and purposeful.
-            </p>
-            <p className="text-gray-400">
-              Outside the studio, I enjoy sketching, visiting historical sites,
-              and experimenting with 3D modeling techniques.
-            </p>
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="text-2xl md:text-3xl mb-8 text-white tracking-wide"
+              style={{
+                fontWeight: 300,
+                letterSpacing: "0.03em",
+              }}
+            >
+              Philosophy
+            </motion.h3>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              viewport={{ once: true }}
+              className="mb-6 text-gray-300 text-lg leading-relaxed"
+              style={{
+                fontWeight: 300,
+                lineHeight: "1.7",
+                fontStyle: "italic",
+              }}
+            >
+              As an architecture student, I believe that great design transcends
+              mere functionality—it tells stories, evokes emotions, and creates
+              meaningful connections between people and spaces.
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              viewport={{ once: true }}
+              className="mb-6 text-gray-400 leading-relaxed"
+              style={{
+                fontWeight: 300,
+                lineHeight: "1.7",
+              }}
+            >
+              My approach combines rigorous academic training with hands-on
+              experience, focusing on the delicate balance between form and
+              function. I believe in creating spaces that are not just visually
+              compelling but also deeply human in their essence.
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1 }}
+              viewport={{ once: true }}
+              className="text-gray-400 leading-relaxed"
+              style={{
+                fontWeight: 300,
+                lineHeight: "1.7",
+              }}
+            >
+              Through careful study of light, material, and spatial
+              relationships, I strive to create environments that inspire and
+              elevate the human experience.
+            </motion.p>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 1, delay: 0.5 }}
             viewport={{ once: true }}
-            className="md:w-1/2"
+            className="lg:w-1/2"
           >
-            <h3 className="text-2xl font-semibold mb-4 text-white">
-              My Skills
-            </h3>
-            <div className="flex flex-wrap gap-3">
-              {skills.map((skill, index) => (
-                <motion.span
-                  key={skill}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="inline-block bg-gray-800 text-gray-300 px-4 py-2 rounded-full"
-                >
-                  {skill}
-                </motion.span>
-              ))}
-            </div>
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              viewport={{ once: true }}
+              className="text-2xl md:text-3xl mb-8 text-white tracking-wide"
+              style={{
+                fontWeight: 300,
+                letterSpacing: "0.03em",
+              }}
+            >
+              Expertise
+            </motion.h3>
 
-            <div className="mt-8">
-              <h4 className="text-xl font-semibold mb-4 text-white">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              viewport={{ once: true }}
+              className="grid grid-cols-2 gap-4 mb-10"
+            >
+              {skills.map((skill, index) => (
+                <motion.div
+                  key={skill}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="text-center py-3 px-4 border border-gray-600 transition-all duration-300 hover:border-white hover:bg-gray-900"
+                  style={{
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  <span className="text-gray-300 font-light text-sm uppercase tracking-wider">
+                    {skill}
+                  </span>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
+              viewport={{ once: true }}
+            >
+              <h4
+                className="text-xl md:text-2xl mb-6 text-white tracking-wide"
+                style={{
+                  fontWeight: 300,
+                  letterSpacing: "0.03em",
+                }}
+              >
                 Experience
               </h4>
-              <div className="space-y-4">
-                <div className="border-l-2 border-white pl-4">
-                  <h5 className="font-medium text-white">
-                    Junior Architect at UrbanSpace Studio
+              <div className="space-y-6">
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 1.4 }}
+                  viewport={{ once: true }}
+                  className="border-l border-white pl-6 relative"
+                >
+                  <div className="absolute w-2 h-2 bg-white rounded-full -left-1 top-2"></div>
+                  <h5
+                    className="text-lg mb-2 text-white tracking-wide"
+                    style={{ fontWeight: 400, letterSpacing: "0.02em" }}
+                  >
+                    Junior Architect
                   </h5>
-                  <p className="text-gray-400 text-sm">2022 - Present</p>
-                  <p className="text-gray-400 mt-1">
-                    Contributed to the design and visualization of mixed-use
-                    developments, using Revit and Lumion to create detailed
-                    presentations and walkthroughs.
+                  <p
+                    className="text-gray-500 text-sm mb-2 uppercase tracking-widest"
+                    style={{ letterSpacing: "0.1em" }}
+                  >
+                    UrbanSpace Studio • 2022 - Present
                   </p>
-                </div>
-                <div className="border-l-2 border-white pl-4">
-                  <h5 className="font-medium text-white">
-                    Architecture Intern at DesignHaus
+                  <p
+                    className="text-gray-400 leading-relaxed"
+                    style={{ fontWeight: 300, lineHeight: "1.6" }}
+                  >
+                    Contributing to the design and visualization of mixed-use
+                    developments, utilizing advanced modeling techniques to
+                    create compelling architectural narratives.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 1.6 }}
+                  viewport={{ once: true }}
+                  className="border-l border-white pl-6 relative"
+                >
+                  <div className="absolute w-2 h-2 bg-white rounded-full -left-1 top-2"></div>
+                  <h5
+                    className="text-lg mb-2 text-white tracking-wide"
+                    style={{ fontWeight: 400, letterSpacing: "0.02em" }}
+                  >
+                    Architecture Intern
                   </h5>
-                  <p className="text-gray-400 text-sm">2021 - 2022</p>
-                  <p className="text-gray-400 mt-1">
-                    Assisted in creating concept designs, physical models, and
-                    technical drawings for residential and commercial projects.
+                  <p
+                    className="text-gray-500 text-sm mb-2 uppercase tracking-widest"
+                    style={{ letterSpacing: "0.1em" }}
+                  >
+                    DesignHaus • 2021 - 2022
                   </p>
-                </div>
+                  <p
+                    className="text-gray-400 leading-relaxed"
+                    style={{ fontWeight: 300, lineHeight: "1.6" }}
+                  >
+                    Developed foundational skills in concept design, physical
+                    modeling, and technical documentation for diverse
+                    architectural projects.
+                  </p>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

@@ -16,6 +16,9 @@ export default {
       screens: {
         "custom-xl": "1170px",
       },
+      fontFamily: {
+        amatic: ['"AmaticSC"', "sans-serif"],
+      },
     },
   },
   plugins: [],
