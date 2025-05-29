@@ -9,7 +9,6 @@ export default function ClickVideoReveal({ onComplete }) {
   const [videoVisible, setVideoVisible] = useState(true);
   const [videoReady, setVideoReady] = useState(false);
   const firstVideoRef = useRef(null);
-  const textRef = useRef(null);
   const buttonRef = useRef(null);
 
   const handleClick = () => {
@@ -22,6 +21,7 @@ export default function ClickVideoReveal({ onComplete }) {
       const progress = Math.min(elapsedTime / animationDuration, 1);
       setAnimationProgress(progress);
 
+      // hide video after 70%
       if (progress > 0.7 && videoVisible) {
         setVideoVisible(false);
       }
@@ -29,43 +29,36 @@ export default function ClickVideoReveal({ onComplete }) {
       if (progress < 1) {
         requestAnimationFrame(animateText);
       } else {
-        setTimeout(() => {
-          if (onComplete) onComplete();
-        }, 500);
+        setTimeout(() => onComplete?.(), 500);
       }
     };
 
     requestAnimationFrame(animateText);
   };
 
-  // Magnet effect
+  // magnet effect
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (!buttonRef.current || animationActive) return;
-
       const rect = buttonRef.current.getBoundingClientRect();
-      const btnCenterX = rect.left + rect.width / 2;
-      const btnCenterY = rect.top + rect.height / 2;
-      const deltaX = e.clientX - btnCenterX;
-      const deltaY = e.clientY - btnCenterY;
-      const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
-
-      const magnetRange = 200;
-      if (distance < magnetRange) {
-        const strength = (magnetRange - distance) / magnetRange;
-        const translateX = deltaX * strength * 0.3;
-        const translateY = deltaY * strength * 0.3;
-
-        buttonRef.current.style.transform = `translate(${translateX}px, ${translateY}px)`;
+      const dx = e.clientX - (rect.left + rect.width / 2);
+      const dy = e.clientY - (rect.top + rect.height / 2);
+      const dist = Math.hypot(dx, dy);
+      const range = 200;
+      if (dist < range) {
+        const strength = (range - dist) / range;
+        buttonRef.current.style.transform = `translate(${
+          dx * strength * 0.3
+        }px, ${dy * strength * 0.3}px)`;
       } else {
         buttonRef.current.style.transform = "translate(0, 0)";
       }
     };
-
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [animationActive]);
 
+  // lock scroll
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -76,11 +69,11 @@ export default function ClickVideoReveal({ onComplete }) {
   const textScale = 1 + animationProgress * 280;
 
   return (
-    <div className="fixed inset-0 z-50">
-      <div className="absolute inset-0 w-full h-full z-0">
+    <div className="fixed inset-0 z-50 bg-black">
+      {videoVisible && (
         <video
           ref={firstVideoRef}
-          className="w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
           autoPlay
           muted
           loop
@@ -88,35 +81,31 @@ export default function ClickVideoReveal({ onComplete }) {
           src={firstVideo}
           onCanPlayThrough={() => setVideoReady(true)}
         />
-      </div>
+      )}
 
-      {/* Wait until video is ready to show UI */}
       {videoReady && (
         <div
-          className="absolute inset-0 z-10 flex items-center justify-center h-screen flex-col"
+          className="absolute inset-0 z-10 flex flex-col items-center justify-center"
           style={{
             opacity: animationProgress === 1 ? 0 : 1,
             transition: "opacity 0.5s ease-in-out",
           }}
         >
-          <div className="flex flex-col items-center justify-center">
-            <h1
-              ref={textRef}
-              className="text-6xl font-bold pointer-events-none text-center bg-black custom-xl:bg-transparent text-white custom-xl:text-black py-2"
-              style={{
-                transform: `scale(${textScale})`,
-                transition: animationActive ? "transform 0s linear" : "none",
-              }}
-            >
-              LET'S BRING LIFE TO YOUR PROJECTS.
-            </h1>
-          </div>
+          <h1
+            className="text-6xl font-bold pointer-events-none text-center bg-black custom-xl:bg-transparent text-white custom-xl:text-black py-2"
+            style={{
+              transform: `scale(${textScale})`,
+              transition: animationActive ? "transform 0s linear" : "none",
+            }}
+          >
+            LET'S BRING LIFE TO YOUR PROJECTS.
+          </h1>
 
           {!animationActive && (
             <div
               ref={buttonRef}
               onClick={handleClick}
-              className="group relative md:top-[150px] top-[60px] z-20 w-[300px] h-[300px] rounded-2xl flex items-center justify-center cursor-pointer transition-transform duration-300"
+              className="relative mt-16 w-[300px] h-[300px] rounded-2xl flex items-center justify-center cursor-pointer transition-transform duration-300"
             >
               <PixelCard
                 variant="bw"
@@ -125,15 +114,11 @@ export default function ClickVideoReveal({ onComplete }) {
                 colors="#ffffff,#000000"
                 className="square-pixel-card"
               >
-                <div
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                <TbRulerOff
+                  size={80}
+                  className="absolute text-white rotate-90"
                   style={{ pointerEvents: "none" }}
-                >
-                  <TbRulerOff
-                    size={80}
-                    className="text-white transform rotate-90"
-                  />
-                </div>
+                />
               </PixelCard>
             </div>
           )}
