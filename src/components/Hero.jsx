@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex justify-center items-center bg-black  pb-8"
+      className="min-h-screen flex justify-center  bg-black  pb-8"
       style={{
         fontFamily:
           "'Playfair Display', 'Cormorant Garamond', 'Crimson Text', serif",
@@ -26,14 +26,14 @@ const Hero = () => {
               fontWeight: 300,
               letterSpacing: "0.02em",
               lineHeight: "1.1",
-              fontSize: "clamp(3rem, 8vw, 7rem)",
+              fontSize: "clamp(3rem, 8vw, 5rem)",
             }}
           >
             <span className="block mb-2">Nour</span>
             <span
               className="text-gray-300 font-thin tracking-wider block"
               style={{
-                fontSize: "clamp(2.25rem, 6vw, 5rem)",
+                fontSize: "clamp(2.25rem, 6vw, 4rem)",
               }}
             >
               ALMASRI
