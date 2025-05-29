@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import firstVideo from "../../public/second-video.mp4";
 import { MdArrowForward } from "react-icons/md";
+import { TbRulerOff } from "react-icons/tb";
+import { FaPenRuler } from "react-icons/fa6";
+
 import ShapeBlur from "./ShapeBlur";
+import PixelCard from "./Pixel-hovevr";
 
 export default function ClickVideoReveal({ onComplete }) {
   const [animationProgress, setAnimationProgress] = useState(0);
@@ -116,7 +120,7 @@ export default function ClickVideoReveal({ onComplete }) {
             onClick={handleClick}
             className="group relative md:top-[150px] top-[60px] z-20 w-[300px] h-[300px] rounded-2xl flex items-center justify-center cursor-pointer transition-transform duration-300"
           >
-            <ShapeBlur
+            {/* <ShapeBlur
               variation={0}
               pixelRatioProp={window.devicePixelRatio || 1}
               shapeSize={1.2}
@@ -126,16 +130,24 @@ export default function ClickVideoReveal({ onComplete }) {
               circleEdge={2}
             />
 
-            {/* Centered Arrow */}
-            <div
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-              style={{ pointerEvents: "none" }}
+            Centered Arrow */}
+            <PixelCard
+              variant="bw"
+              gap={5}
+              speed={40}
+              colors="#ffffff,#000000"
+              className="square-pixel-card"
             >
-              <MdArrowForward
-                size={40}
-                className="text-black transform -rotate-45" // Rotate the arrow 45 degrees
-              />
-            </div>
+              <div
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                style={{ pointerEvents: "none" }}
+              >
+                <TbRulerOff
+                  size={80}
+                  className="text-white transform rotate-90 "
+                />
+              </div>
+            </PixelCard>
           </div>
         )}
       </div>
