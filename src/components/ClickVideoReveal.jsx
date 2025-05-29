@@ -1,16 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import firstVideo from "../../public/second-video.mp4";
-import { MdArrowForward } from "react-icons/md";
 import { TbRulerOff } from "react-icons/tb";
-import { FaPenRuler } from "react-icons/fa6";
-
-import ShapeBlur from "./ShapeBlur";
 import PixelCard from "./Pixel-hovevr";
 
 export default function ClickVideoReveal({ onComplete }) {
   const [animationProgress, setAnimationProgress] = useState(0);
   const [animationActive, setAnimationActive] = useState(false);
   const [videoVisible, setVideoVisible] = useState(true);
+  const [videoReady, setVideoReady] = useState(false);
   const firstVideoRef = useRef(null);
   const textRef = useRef(null);
   const buttonRef = useRef(null);
@@ -53,7 +50,7 @@ export default function ClickVideoReveal({ onComplete }) {
       const deltaY = e.clientY - btnCenterY;
       const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
 
-      const magnetRange = 200; // Increased range
+      const magnetRange = 200;
       if (distance < magnetRange) {
         const strength = (magnetRange - distance) / magnetRange;
         const translateX = deltaX * strength * 0.3;
@@ -80,77 +77,68 @@ export default function ClickVideoReveal({ onComplete }) {
 
   return (
     <div className="fixed inset-0 z-50">
-      {videoVisible && (
-        <div className="absolute inset-0 w-full h-full z-0">
-          <video
-            ref={firstVideoRef}
-            className="w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            src={firstVideo}
-          />
+      <div className="absolute inset-0 w-full h-full z-0">
+        <video
+          ref={firstVideoRef}
+          className="w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          src={firstVideo}
+          onCanPlayThrough={() => setVideoReady(true)}
+        />
+      </div>
+
+      {/* Wait until video is ready to show UI */}
+      {videoReady && (
+        <div
+          className="absolute inset-0 z-10 flex items-center justify-center h-screen flex-col"
+          style={{
+            opacity: animationProgress === 1 ? 0 : 1,
+            transition: "opacity 0.5s ease-in-out",
+          }}
+        >
+          <div className="flex flex-col items-center justify-center">
+            <h1
+              ref={textRef}
+              className="text-6xl font-bold pointer-events-none text-center bg-black custom-xl:bg-transparent text-white custom-xl:text-black py-2"
+              style={{
+                transform: `scale(${textScale})`,
+                transition: animationActive ? "transform 0s linear" : "none",
+              }}
+            >
+              LET'S BRING LIFE TO YOUR PROJECTS.
+            </h1>
+          </div>
+
+          {!animationActive && (
+            <div
+              ref={buttonRef}
+              onClick={handleClick}
+              className="group relative md:top-[150px] top-[60px] z-20 w-[300px] h-[300px] rounded-2xl flex items-center justify-center cursor-pointer transition-transform duration-300"
+            >
+              <PixelCard
+                variant="bw"
+                gap={5}
+                speed={40}
+                colors="#ffffff,#000000"
+                className="square-pixel-card"
+              >
+                <div
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                  style={{ pointerEvents: "none" }}
+                >
+                  <TbRulerOff
+                    size={80}
+                    className="text-white transform rotate-90"
+                  />
+                </div>
+              </PixelCard>
+            </div>
+          )}
         </div>
       )}
-
-      <div
-        className="absolute inset-0 z-10 flex items-center justify-center h-screen flex-col"
-        style={{
-          opacity: animationProgress === 1 ? 0 : 1,
-          transition: "opacity 0.5s ease-in-out",
-        }}
-      >
-        <div className="flex flex-col items-center justify-center">
-          <h1
-            ref={textRef}
-            className="text-6xl font-bold pointer-events-none text-center bg-black custom-xl:bg-transparent text-white custom-xl:text-black py-2"
-            style={{
-              transform: `scale(${textScale})`,
-              transition: animationActive ? "transform 0s linear" : "none",
-            }}
-          >
-            LET'S BRING LIFE TO YOUR PROJECTS.
-          </h1>
-        </div>
-
-        {!animationActive && (
-          <div
-            ref={buttonRef}
-            onClick={handleClick}
-            className="group relative md:top-[150px] top-[60px] z-20 w-[300px] h-[300px] rounded-2xl flex items-center justify-center cursor-pointer transition-transform duration-300"
-          >
-            {/* <ShapeBlur
-              variation={0}
-              pixelRatioProp={window.devicePixelRatio || 1}
-              shapeSize={1.2}
-              roundness={0.5}
-              borderSize={0.2}
-              circleSize={0.5}
-              circleEdge={2}
-            />
-
-            Centered Arrow */}
-            <PixelCard
-              variant="bw"
-              gap={5}
-              speed={40}
-              colors="#ffffff,#000000"
-              className="square-pixel-card"
-            >
-              <div
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                style={{ pointerEvents: "none" }}
-              >
-                <TbRulerOff
-                  size={80}
-                  className="text-white transform rotate-90 "
-                />
-              </div>
-            </PixelCard>
-          </div>
-        )}
-      </div>
     </div>
   );
 }
