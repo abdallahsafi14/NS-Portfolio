@@ -1,47 +1,43 @@
-import { useState, useEffect } from "react";
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Projects from "./components/Projects";
-import Skills from "./components/Skills";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ClickVideoReveal from "./components/ClickVideoReveal";
+import LandingPage from "./components/LandingPage";
+import { useEffect, useState } from "react";
+import ProjectDetails from "./components/project"; // Make sure this path is correct
 
 const App = () => {
   const [introComplete, setIntroComplete] = useState(false);
 
-  // Function to be called when the ClickVideoReveal animation is complete
   const handleIntroComplete = () => {
-    setIntroComplete(true); // Conditionally render components only after intro finishes
-    window.scrollTo(0, 0); // Reset scroll position
+    setIntroComplete(true);
+    window.scrollTo(0, 0);
   };
 
   useEffect(() => {
-    // Prevent scrolling on the main content when intro is showing
     document.body.style.overflow = introComplete ? "auto" : "hidden";
   }, [introComplete]);
 
   return (
-    <>
-      {!introComplete ? (
-        <ClickVideoReveal onComplete={handleIntroComplete} />
-      ) : (
-        <div className="min-h-screen flex flex-col z-60">
-          {" "}
-          {/* Increased z-index */}
-          <Header />
-          <main className="flex-1 flex flex-col justify-start">
-            <Hero />
-            <About />
-            <Projects />
-            <Skills />
-            <Contact />
-          </main>
-          <Footer />
-        </div>
-      )}
-    </>
+    <Router>
+      <Routes>
+        {/* Show intro video only on root `/` */}
+        <Route
+          index
+          element={
+            !introComplete ? (
+              <ClickVideoReveal onComplete={handleIntroComplete} />
+            ) : (
+              <LandingPage />
+            )
+          }
+        />
+
+        {/* Explicit route for landing page */}
+        <Route path="/" element={<LandingPage />} />
+
+        {/* Projects route */}
+        <Route path="/projects/:id" element={<ProjectDetails />} />
+      </Routes>
+    </Router>
   );
 };
 

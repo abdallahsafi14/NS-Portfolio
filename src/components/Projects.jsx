@@ -1,33 +1,38 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const projects = [
   {
-    title: "Modern Residential Villa",
+    id: 1,
+    title: "Modern Apartment Design for Green Swift, Qatar",
     description:
-      "A conceptual design for a modern villa focused on open space, natural lighting, and sustainability.",
-    tags: ["Revit", "Lumion", "AutoCAD", "Sustainable Design"],
+      "Transformed traditional 2D floor plans into a detailed 3D BIM model using Revit, ensuring precision in architecture, materials, and lighting. The design was then brought to life with hyper-realistic renders in Enscape, capturing sun studies and textures. Finally, I created an interactive EXE file, allowing clients to freely explore the apartment, adjust lighting, and experience the space in real-time—merging technical expertise with immersive storytelling for unparalleled client engagement.",
+    tags: ["Revit", "Enscape", "BIM", "Interactive Design"],
     image:
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
   {
-    title: "Urban Plaza Redesign",
+    id: 2,
+    title: "Revitalizing Heritage: BIM Transformation of a Historic School",
     description:
-      "A public space renovation project aiming to increase walkability, social interaction, and green spaces.",
-    tags: ["SketchUp", "Photoshop", "3ds Max", "Urban Design"],
+      "Executed a precise field survey of an aging school, capturing every detail for accurate as-built documentation. Using Revit, I developed a smart BIM model, enabling efficient space optimization while respecting its historic essence. The model facilitated seamless design adjustments and real-time 3D visualization, allowing stakeholders to virtually experience the transformed spaces before construction. This BIM-driven approach bridged heritage preservation with modern functionality, delivering both technical precision and immersive storytelling.",
+    tags: ["Revit", "BIM", "Heritage Preservation", "3D Visualization"],
     image:
       "https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
   {
-    title: "Commercial Office Building",
+    id: 3,
+    title: "Modern Residential Villa",
     description:
-      "A multi-floor office complex featuring modular workspaces, natural ventilation, and eco-friendly materials.",
-    tags: ["Revit", "AutoCAD", "LEED", "Construction Docs"],
+      "A conceptual design for a modern villa focused on open space, natural lighting, and sustainability.",
+    tags: ["Revit", "Lumion", "AutoCAD", "Sustainable Design"],
     image:
       "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
 ];
 
 const Projects = () => {
+  const navigate = useNavigate();
   return (
     <section
       id="projects"
@@ -107,19 +112,9 @@ const Projects = () => {
                   {project.title}
                 </motion.h3>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.2 + 0.4 }}
-                  viewport={{ once: true }}
-                  className="text-gray-400 mb-6 leading-relaxed"
-                  style={{
-                    fontWeight: 300,
-                    lineHeight: "1.6",
-                  }}
-                >
-                  {project.description}
-                </motion.p>
+                <div className="truncate max-h-12 overflow-hidden text-gray-400 mb-6 leading-relaxed">
+                  <p>{project.description}</p>
+                </div>
 
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
@@ -148,14 +143,14 @@ const Projects = () => {
                   transition={{ duration: 0.6, delay: index * 0.2 + 0.6 }}
                   viewport={{ once: true }}
                 >
-                  <motion.a
-                    href="#"
+                  <motion.button
                     className="inline-flex items-center text-white text-sm uppercase tracking-widest border-b border-transparent hover:border-white transition-all duration-300 group-hover:translate-x-1"
                     style={{
                       letterSpacing: "0.1em",
                       fontWeight: 300,
                     }}
                     whileHover={{ x: 5 }}
+                    onClick={() => navigate(`/projects/${project.id}`)}
                   >
                     View Project
                     <motion.span
@@ -165,7 +160,7 @@ const Projects = () => {
                     >
                       →
                     </motion.span>
-                  </motion.a>
+                  </motion.button>
                 </motion.div>
               </div>
             </motion.div>
