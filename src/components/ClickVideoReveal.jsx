@@ -6,6 +6,7 @@ export default function ScrollVideoReveal({ onComplete }) {
   const [videoVisible, setVideoVisible] = useState(true);
   const [videoReady, setVideoReady] = useState(false);
   const firstVideoRef = useRef(null);
+  const touchStartY = useRef(0);
 
   // Auto-trigger animation after 3 seconds
   // useEffect(() => {
@@ -20,7 +21,7 @@ export default function ScrollVideoReveal({ onComplete }) {
   //   return () => clearTimeout(timer);
   // }, [videoReady, animationActive]);
 
-  // Also try to detect any scroll/wheel events as backup
+  // Detect scroll/wheel/touch events
   useEffect(() => {
     const handleWheel = (e) => {
       if (!animationActive && videoReady) {
@@ -38,21 +39,52 @@ export default function ScrollVideoReveal({ onComplete }) {
       }
     };
 
+    // Touch events for mobile
+    const handleTouchStart = (e) => {
+      if (!animationActive && videoReady) {
+        touchStartY.current = e.touches[0].clientY;
+      }
+    };
+
+    const handleTouchMove = (e) => {
+      if (!animationActive && videoReady && touchStartY.current) {
+        const touchY = e.touches[0].clientY;
+        const deltaY = touchStartY.current - touchY;
+
+        // If user swipes up (scrolling down) by more than 50px, trigger animation
+        if (deltaY > 50) {
+          triggerAnimation();
+          touchStartY.current = 0;
+        }
+      }
+    };
+
+    const handleTouchEnd = () => {
+      touchStartY.current = 0;
+    };
+
+    // Add event listeners
     window.addEventListener("wheel", handleWheel, { passive: true });
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
     };
   }, [animationActive, videoReady]);
 
   const triggerAnimation = () => {
     setAnimationActive(true);
 
-    // Check if device is mobile (screen width less than 768px)
+    // Check if device is mobile (screen width less than 1150px)
     const isMobile = window.innerWidth < 1150;
-    const animationDuration = isMobile ? 1000 : 1500; // 0.8s for mobile, 3s for desktop
+    const animationDuration = isMobile ? 1000 : 1500; // 1s for mobile, 1.5s for desktop
 
     const startTime = Date.now();
 
