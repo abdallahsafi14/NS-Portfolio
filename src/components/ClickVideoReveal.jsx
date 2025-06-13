@@ -3,7 +3,7 @@ import Logo1 from "../../public/Logo.png";
 
 // OPTIONAL: Replace this with your actual logo component or an <img> tag
 const Logo = () => (
-  <div className="text-white text-4xl font-bold brightness-0">
+  <div className="text-white text-4xl font-bold brightness-0 invert">
     <img src={Logo1} alt="" />
   </div>
 );
