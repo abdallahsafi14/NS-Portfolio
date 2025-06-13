@@ -1,4 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import Logo1 from "../../public/Logo.png";
+
+// OPTIONAL: Replace this with your actual logo component or an <img> tag
+const Logo = () => (
+  <div className="text-white text-4xl font-bold brightness-0">
+    <img src={Logo1} alt="" />
+  </div>
+);
 
 export default function ScrollVideoReveal({ onComplete }) {
   const [animationProgress, setAnimationProgress] = useState(0);
@@ -8,30 +16,14 @@ export default function ScrollVideoReveal({ onComplete }) {
   const firstVideoRef = useRef(null);
   const touchStartY = useRef(0);
 
-  // Auto-trigger animation after 3 seconds
-  // useEffect(() => {
-  //   if (!videoReady) return;
-
-  //   const timer = setTimeout(() => {
-  //     if (!animationActive) {
-  //       triggerAnimation();
-  //     }
-  //   }, 10000); // Trigger after 3 seconds
-
-  //   return () => clearTimeout(timer);
-  // }, [videoReady, animationActive]);
-
-  // Detect scroll/wheel/touch events
   useEffect(() => {
-    const handleWheel = (e) => {
-      if (!animationActive && videoReady) {
-        triggerAnimation();
-      }
+    const handleWheel = () => {
+      if (!animationActive && videoReady) triggerAnimation();
     };
 
     const handleKeyDown = (e) => {
       if (
-        (e.key === "ArrowDown" || e.key === "PageDown" || e.key === " ") &&
+        ["ArrowDown", "PageDown", " "].includes(e.key) &&
         !animationActive &&
         videoReady
       ) {
@@ -39,7 +31,6 @@ export default function ScrollVideoReveal({ onComplete }) {
       }
     };
 
-    // Touch events for mobile
     const handleTouchStart = (e) => {
       if (!animationActive && videoReady) {
         touchStartY.current = e.touches[0].clientY;
@@ -50,8 +41,6 @@ export default function ScrollVideoReveal({ onComplete }) {
       if (!animationActive && videoReady && touchStartY.current) {
         const touchY = e.touches[0].clientY;
         const deltaY = touchStartY.current - touchY;
-
-        // If user swipes up (scrolling down) by more than 50px, trigger animation
         if (deltaY > 50) {
           triggerAnimation();
           touchStartY.current = 0;
@@ -63,7 +52,6 @@ export default function ScrollVideoReveal({ onComplete }) {
       touchStartY.current = 0;
     };
 
-    // Add event listeners
     window.addEventListener("wheel", handleWheel, { passive: true });
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
@@ -81,31 +69,21 @@ export default function ScrollVideoReveal({ onComplete }) {
 
   const triggerAnimation = () => {
     setAnimationActive(true);
-
-    // Check if device is mobile (screen width less than 1150px)
     const isMobile = window.innerWidth < 1150;
-    const animationDuration = isMobile ? 1000 : 1500; // 1s for mobile, 1.5s for desktop
+    const duration = isMobile ? 1000 : 1500;
+    const start = Date.now();
 
-    const startTime = Date.now();
-
-    const animateText = () => {
-      const elapsedTime = Date.now() - startTime;
-      const progress = Math.min(elapsedTime / animationDuration, 1);
+    const animate = () => {
+      const elapsed = Date.now() - start;
+      const progress = Math.min(elapsed / duration, 1);
       setAnimationProgress(progress);
 
-      // hide video after 70%
-      if (progress > 0.7 && videoVisible) {
-        setVideoVisible(false);
-      }
-
-      if (progress < 1) {
-        requestAnimationFrame(animateText);
-      } else {
-        setTimeout(() => onComplete?.(), 500);
-      }
+      if (progress > 0.7 && videoVisible) setVideoVisible(false);
+      if (progress < 1) requestAnimationFrame(animate);
+      else setTimeout(() => onComplete?.(), 500);
     };
 
-    requestAnimationFrame(animateText);
+    requestAnimationFrame(animate);
   };
 
   const textScale = 1 + animationProgress * 280;
@@ -123,6 +101,15 @@ export default function ScrollVideoReveal({ onComplete }) {
           src="/second-video.mp4"
           onCanPlayThrough={() => setVideoReady(true)}
         />
+      )}
+
+      {/* Loader while waiting for video to be ready */}
+      {!videoReady && (
+        <div className="absolute inset-0 z-30 flex items-center justify-center bg-black">
+          <div className="animate-pulse-slow">
+            <Logo />
+          </div>
+        </div>
       )}
 
       {videoReady && (
@@ -145,15 +132,12 @@ export default function ScrollVideoReveal({ onComplete }) {
         </div>
       )}
 
-      {/* Scroll indicator - now just for visual appeal */}
+      {/* Scroll prompt */}
       {!animationActive && videoReady && (
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center">
-          <div className="mb-4 text-center">
-            <h2 className="text-2xl font-bold  bg-clip-text text-black animate-pulse">
-              SCROLL DOWN
-            </h2>
-          </div>
-
+          <h2 className="text-2xl font-bold bg-clip-text text-black animate-pulse">
+            SCROLL DOWN
+          </h2>
           <div className="flex flex-col items-center space-y-2">
             <div className="w-6 h-10 border-2 border-black rounded-full flex justify-center">
               <div className="w-1 h-3 bg-black rounded-full mt-2 animate-bounce"></div>
