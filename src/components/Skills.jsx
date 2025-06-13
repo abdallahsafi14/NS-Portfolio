@@ -2,14 +2,12 @@ import { motion } from "framer-motion";
 import React from "react";
 
 const skills = [
-  { name: "AutoCAD", level: 95 },
+  { name: "AutoCAD", level: 75 },
   { name: "Revit", level: 90 },
-  { name: "SketchUp", level: 85 },
-  { name: "3ds Max", level: 80 },
-  { name: "Lumion", level: 85 },
-  { name: "Photoshop", level: 75 },
-  { name: "Sustainable Design", level: 80 },
-  { name: "Urban Planning", level: 70 },
+  { name: "Lumion", level: 80 },
+  { name: "Enscape", level: 95 },
+  { name: "Photoshop", level: 90 },
+  { name: "D5", level: 75 },
 ];
 
 const Skills = () => {

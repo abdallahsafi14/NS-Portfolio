@@ -131,46 +131,6 @@ const About = () => {
             viewport={{ once: true }}
             className="lg:w-1/2"
           >
-            <motion.h3
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              viewport={{ once: true }}
-              className="text-2xl md:text-3xl mb-8 text-white tracking-wide"
-              style={{
-                fontWeight: 300,
-                letterSpacing: "0.03em",
-              }}
-            >
-              Expertise
-            </motion.h3>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              viewport={{ once: true }}
-              className="grid grid-cols-2 gap-4 mb-10"
-            >
-              {skills.map((skill, index) => (
-                <motion.div
-                  key={skill}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-center py-3 px-4 border border-gray-600 transition-all duration-300 hover:border-white hover:bg-gray-900"
-                  style={{
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  <span className="text-gray-300 font-light text-sm uppercase tracking-wider">
-                    {skill}
-                  </span>
-                </motion.div>
-              ))}
-            </motion.div>
-
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -205,19 +165,20 @@ const About = () => {
                     className="text-gray-500 text-sm mb-2 uppercase tracking-widest"
                     style={{ letterSpacing: "0.1em" }}
                   >
-                    UrbanSpace Studio • 2022 - Present
+                    Simplex studio • 2024 - Present
                   </p>
                   <p
                     className="text-gray-400 leading-relaxed"
                     style={{ fontWeight: 300, lineHeight: "1.6" }}
                   >
-                    Contributing to the design and visualization of mixed-use
-                    developments, utilizing advanced modeling techniques to
-                    create compelling architectural narratives.
+                    I contributed by introducing a new, impactful element to the
+                    company and took over the executive architectural role. I
+                    became the primary point of reliance using Revit and assumed
+                    responsibility for the company's BIM department.
                   </p>
                 </motion.div>
 
-                <motion.div
+                {/* <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: 1.6 }}
@@ -245,7 +206,7 @@ const About = () => {
                     modeling, and technical documentation for diverse
                     architectural projects.
                   </p>
-                </motion.div>
+                </motion.div> */}
               </div>
             </motion.div>
           </motion.div>

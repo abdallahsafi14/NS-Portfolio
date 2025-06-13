@@ -22,12 +22,12 @@ const projects = [
   },
   {
     id: 3,
-    title: "Modern Residential Villa",
+    title: "Revitalizing Heritage: BIM Transformation of a Historic School",
     description:
-      "A conceptual design for a modern villa focused on open space, natural lighting, and sustainability.",
-    tags: ["Revit", "Lumion", "AutoCAD", "Sustainable Design"],
+      "Executed a precise field survey of an aging school, capturing every detail for accurate as-built documentation. Using Revit, I developed a smart BIM model, enabling efficient space optimization while respecting its historic essence. The model facilitated seamless design adjustments and real-time 3D visualization, allowing stakeholders to virtually experience the transformed spaces before construction. This BIM-driven approach bridged heritage preservation with modern functionality, delivering both technical precision and immersive storytelling.",
+    tags: ["Revit", "BIM", "Heritage Preservation", "3D Visualization"],
     image:
-      "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
 ];
 
@@ -72,6 +72,27 @@ const Projects = () => {
           />
         </motion.div>
 
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <p
+            className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed"
+            style={{
+              fontWeight: 300,
+              lineHeight: "1.7",
+              fontStyle: "italic",
+            }}
+          >
+            Here’s a selection of projects I’ve worked on—from academic
+            assignments to real commissions—each one shaped by an eye for
+            detail, a love of composition, and a drive to elevate spatial
+            experiences.
+          </p>
+        </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {projects.map((project, index) => (
             <motion.div
