@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import Logo1 from "../../public/Logo.png";
 
-// OPTIONAL: Replace this with your actual logo component or an <img> tag
+// Logo Component
 const Logo = () => (
   <div className="text-white text-4xl font-bold brightness-0 invert">
-    <img src={Logo1} alt="" />
+    <img src={Logo1} alt="Logo" />
   </div>
 );
 
@@ -99,7 +99,11 @@ export default function ScrollVideoReveal({ onComplete }) {
           loop
           playsInline
           src="/second-video.mp4"
-          onCanPlayThrough={() => setVideoReady(true)}
+          onLoadedData={() => setVideoReady(true)}
+          onError={() => {
+            console.error("Failed to load video.");
+            setVideoReady(false);
+          }}
         />
       )}
 
