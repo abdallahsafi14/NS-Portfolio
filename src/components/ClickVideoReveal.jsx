@@ -3,7 +3,7 @@ import Logo1 from "../../public/Logo.png";
 
 // Logo Component
 const Logo = () => (
-  <div className="text-white text-4xl md:w-auto w-[100px] font-bold brightness-0 invert">
+  <div className="text-white text-4xl md:w-auto w-[150px] font-bold brightness-0 invert">
     <img src={Logo1} alt="Logo" />
   </div>
 );
@@ -13,10 +13,13 @@ export default function ScrollVideoReveal({ onComplete }) {
   const [animationActive, setAnimationActive] = useState(false);
   const [videoVisible, setVideoVisible] = useState(true);
   const [videoReady, setVideoReady] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const firstVideoRef = useRef(null);
   const touchStartY = useRef(0);
 
   useEffect(() => {
+    setIsMobile(window.innerWidth <= 1208);
+
     const handleWheel = () => {
       if (!animationActive && videoReady) triggerAnimation();
     };
@@ -69,8 +72,7 @@ export default function ScrollVideoReveal({ onComplete }) {
 
   const triggerAnimation = () => {
     setAnimationActive(true);
-    const isMobile = window.innerWidth < 1150;
-    const duration = isMobile ? 1000 : 1500;
+    const duration = isMobile ? 2000 : 1500;
     const start = Date.now();
 
     const animate = () => {
@@ -86,7 +88,9 @@ export default function ScrollVideoReveal({ onComplete }) {
     requestAnimationFrame(animate);
   };
 
-  const textScale = 1 + animationProgress * 280;
+  const textScale = isMobile
+    ? 1 + animationProgress * 50
+    : 1 + animationProgress * 280;
 
   return (
     <div className="fixed inset-0 z-50 bg-black">
@@ -107,11 +111,15 @@ export default function ScrollVideoReveal({ onComplete }) {
         />
       )}
 
-      {/* Loader while waiting for video to be ready */}
+      {/* Custom Classy Loader */}
       {!videoReady && (
-        <div className="absolute inset-0 z-30 flex items-center justify-center bg-black">
-          <div className="animate-pulse-slow">
-            <Logo />
+        <div className="absolute inset-0 z-30 flex items-center justify-center bg-black transition-opacity duration-500">
+          <div className="relative w-16 h-16">
+            <div className="absolute inset-0 rounded-full border-4 border-gray-700 opacity-20" />
+            <div className="absolute inset-0 rounded-full border-t-4 border-white animate-spin-slow" />
+            <div className="absolute inset-0 flex items-center justify-center text-white font-light text-sm tracking-widest animate-pulse">
+              LOADING
+            </div>
           </div>
         </div>
       )}

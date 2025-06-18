@@ -133,8 +133,8 @@ const Projects = () => {
                   {project.title}
                 </motion.h3>
 
-                <div className="truncate max-h-12 overflow-hidden text-gray-400 mb-6 leading-relaxed">
-                  <p>{project.description}</p>
+                <div className="text-gray-400 mb-6 leading-relaxed line-clamp-2">
+                  {project.description}
                 </div>
 
                 <motion.div
