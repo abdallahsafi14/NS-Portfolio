@@ -1,7 +1,12 @@
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const ProjectDetails = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   const { id } = useParams();
   const projects = [
     {
@@ -50,77 +55,64 @@ const ProjectDetails = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <section
-        id="project-details"
-        className="py-24 bg-black overflow-hidden"
-        style={{
-          fontFamily:
-            "'Playfair Display', 'Cormorant Garamond', 'Crimson Text', serif",
-        }}
-      >
-        <div className="container mx-auto px-8 max-w-6xl">
-          {/* Title */}
+      <section className="bg-black min-h-screen py-24 px-6 md:px-16 font-serif text-white">
+        <div className="max-w-6xl mx-auto">
+          {/* Project Title */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl mb-6 text-white tracking-wide"
-            style={{
-              fontWeight: 300,
-              letterSpacing: "0.05em",
-            }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="text-4xl md:text-5xl mb-4 tracking-wide"
+            style={{ fontFamily: "'Playfair Display', serif", fontWeight: 400 }}
           >
             {project.title}
           </motion.h1>
 
           {/* Divider */}
           <motion.div
-            initial={{ opacity: 0, width: 0 }}
-            whileInView={{ opacity: 1, width: "80px" }}
-            transition={{ duration: 1, delay: 0.6 }}
-            viewport={{ once: true }}
-            className="h-px bg-white mx-auto mb-16"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="origin-left w-24 h-[2px] bg-gradient-to-r from-white to-gray-500 mb-12"
           />
 
-          {/* Image */}
+          {/* Image Reveal */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="mb-16"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="rounded-lg overflow-hidden shadow-2xl border border-gray-800 mb-16"
           >
             <img
               src={project.image}
               alt={project.title}
-              className="w-full h-auto max-h-[400px] object-cover rounded-lg border border-gray-800 shadow-2xl transition-transform duration-300 hover:scale-105"
+              className="w-full h-auto max-h-[500px] object-cover"
             />
           </motion.div>
 
           {/* Tags */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            viewport={{ once: true }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16"
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-16"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.15,
+                },
+              },
+            }}
           >
-            {project.tags.map((tag) => (
+            {project.tags.map((tag, index) => (
               <motion.div
                 key={tag}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.8 }}
-                viewport={{ once: true }}
-                className="text-center py-3 px-4 border border-gray-600 transition-all duration-300 hover:border-white hover:bg-gray-900"
-                style={{
-                  letterSpacing: "0.05em",
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  visible: { opacity: 1, y: 0 },
                 }}
+                className="bg-white bg-opacity-5 backdrop-blur-sm px-4 py-2 rounded-lg border border-gray-600 text-sm text-center uppercase tracking-widest hover:bg-opacity-10 transition duration-300"
               >
-                <span className="text-gray-300 font-light text-sm uppercase tracking-wider">
-                  {tag}
-                </span>
+                {tag}
               </motion.div>
             ))}
           </motion.div>
@@ -128,14 +120,10 @@ const ProjectDetails = () => {
           {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            viewport={{ once: true }}
-            className="text-gray-400 text-lg leading-relaxed mb-16"
-            style={{
-              fontWeight: 300,
-              lineHeight: "1.7",
-            }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="text-gray-300 text-lg leading-relaxed tracking-wide"
+            style={{ fontWeight: 300, lineHeight: "1.75" }}
           >
             {project.description}
           </motion.p>

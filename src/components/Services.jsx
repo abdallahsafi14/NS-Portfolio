@@ -1,6 +1,13 @@
 import { motion } from "framer-motion";
 
 const services = [
+  //    3D modeling from 2D architectural plans
+  // - BIM-based design using Revit
+  // - Realistic rendering using Lumion and Enscape
+  // - Post-production and visual enhancement in Photoshop
+  // - Architectural animation and walkthroughs
+  // - Interactive EXE project experiences (game-like exploration)
+
   {
     title: "3D Modeling",
     description: "3D modeling from 2D architectural plans",
@@ -20,20 +27,20 @@ const services = [
       "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
   {
-    title: "3D Modeling",
-    description: "3D modeling from 2D architectural plans",
+    title: "Post-production",
+    description: "Post-production and visual enhancement in Photoshop",
     image:
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
   {
-    title: "BIM Design",
-    description: "BIM-based design using Revit",
+    title: "Architectural animation",
+    description: "Architectural animation and walkthroughs",
     image:
       "https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
   {
-    title: "Rendering",
-    description: "Realistic rendering using Lumion and Enscape",
+    title: "Interactive EXE project",
+    description: "Interactive EXE project experiences (game-like exploration)",
     image:
       "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
