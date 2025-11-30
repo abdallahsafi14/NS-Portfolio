@@ -76,12 +76,12 @@ const IntroLoader = ({ onComplete }) => {
   const handleBarAnimationComplete = () => {
     // PHASE 1: We hit 90%
     if (loadingPercent === 90) {
-      console.log("Reached 90%. Waiting 3 seconds...");
+      console.log("Reached 90%. Waiting 1 second...");
 
       setTimeout(() => {
-        // After 3 seconds, fill to 100%
+        // After 1 seconds, fill to 100%
         setLoadingPercent(100);
-      }, 3000);
+      }, 1000);
     }
 
     // PHASE 2: We hit 100%
