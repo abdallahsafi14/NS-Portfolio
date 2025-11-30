@@ -1,40 +1,50 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ClickVideoReveal from "./components/ClickVideoReveal";
-import LandingPage from "./components/LandingPage";
 import { useEffect, useState } from "react";
-import ProjectDetails from "./components/project"; // Make sure this path is correct
+import { AnimatePresence } from "framer-motion";
+
+// Components
+import IntroLoader from "./components/IntroLoader";
+import LandingPage from "./components/LandingPage";
+import ProjectDetails from "./components/project";
 
 const App = () => {
-  const [introComplete, setIntroComplete] = useState(false);
+  // Use session storage if you want it to show only once per session
+  // or simple useState if it should show on every refresh.
+  const [introFinished, setIntroFinished] = useState(false);
 
   const handleIntroComplete = () => {
-    setIntroComplete(true);
+    setIntroFinished(true);
+    // Unlock scrolling once complete
+    document.body.style.overflow = "auto";
     window.scrollTo(0, 0);
   };
 
   useEffect(() => {
-    document.body.style.overflow = introComplete ? "auto" : "hidden";
-  }, [introComplete]);
+    if (!introFinished) {
+      document.body.style.overflow = "hidden"; // Lock scroll during intro
+    }
+  }, [introFinished]);
 
   return (
     <Router>
+      {/* 
+         INTRO OVERLAY
+         AnimatePresence allows the component to animate out (fade) 
+         before being removed from the DOM.
+      */}
+      <AnimatePresence>
+        {!introFinished && <IntroLoader onComplete={handleIntroComplete} />}
+      </AnimatePresence>
+
       <Routes>
-        {/* Show intro video only on root `/` */}
         <Route
-          index
+          path="/"
           element={
-            !introComplete ? (
-              <ClickVideoReveal onComplete={handleIntroComplete} />
-            ) : (
-              <LandingPage />
-            )
+            // LandingPage is rendered immediately, sitting behind the z-[9999] loader
+            <LandingPage />
           }
         />
-
-        {/* Explicit route for landing page */}
-        <Route path="/" element={<LandingPage />} />
-
-        {/* Projects route */}
+        {/* Projects Route */}
         <Route path="/projects/:id" element={<ProjectDetails />} />
       </Routes>
     </Router>
