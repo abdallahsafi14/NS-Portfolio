@@ -3,131 +3,124 @@ import { motion } from "framer-motion";
 import Logo from "../../public/Logo.png";
 
 const IntroLoader = ({ onComplete }) => {
-  const [loadingProgress, setLoadingProgress] = useState(0);
-  const [loadingComplete, setLoadingComplete] = useState(false);
-  const [exitAnimationStarted, setExitAnimationStarted] = useState(false);
+  // We use this state to drive the loading bar width (0 -> 90 -> 100)
+  const [loadingPercent, setLoadingPercent] = useState(0);
+
+  // Triggers the final letters sliding up and disappearing
+  const [exitPhase, setExitPhase] = useState(false);
 
   const text = "LET'S BRING LIFE TO YOUR PROJECTS.";
 
-  // 1. Text Animation Variants (Staggered Exit)
+  // --- ANIMATION VARIANTS ---
+
   const containerVariants = {
-    initial: {},
+    // Stagger the letters entering
+    enter: {
+      transition: { staggerChildren: 0.04, delayChildren: 0.2 },
+    },
+    // Stagger the letters exiting
     exit: {
-      transition: { staggerChildren: 0.05 },
+      transition: { staggerChildren: 0.03 },
     },
   };
 
+  // Letters flow: Enters from BOTTOM (50) -> Center (0) -> Exits TOP (-50)
   const letterVariants = {
-    initial: { y: 0, opacity: 1 },
+    initial: { y: 50, opacity: 0 }, // Starts below
+    enter: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 1, ease: [0.33, 1, 0.68, 1] },
+    },
+    exit: {
+      y: -50, // Moves up
+      opacity: 0,
+      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
+    },
+  };
+
+  // Logo follows same logic: Bottom -> Center -> Top
+  const logoVariants = {
+    initial: { y: 30, opacity: 0 },
+    enter: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 1, ease: "easeOut" },
+    },
     exit: {
       y: -50,
       opacity: 0,
-      transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] },
+      transition: { duration: 0.5 },
     },
   };
 
+  // --- LOGIC ---
+
   useEffect(() => {
-    // 2. RESOURCE PRELOADING LOGIC
-    // We simulate a minimum time, but also wait for actual Window Load + Critical Images
-    let currentProgress = 0;
+    // 1. Start loading immediately on mount.
+    // We animate to 90% first.
 
-    // List critical images to preload here
-    const imagePaths = [Logo];
-    let imagesLoaded = 0;
+    // Check if page is already loaded to determine initial speed
+    const isLoaded = document.readyState === "complete";
 
-    const updateProgress = () => {
-      // Logic: If images aren't ready, cap progress at 90%.
-      // If ready, allow it to go to 100%.
-      const target =
-        imagesLoaded === imagePaths.length && document.readyState === "complete"
-          ? 100
-          : 90;
+    // Simulate initial loading time (1.5s to get to 90%)
+    const startTimer = setTimeout(() => {
+      setLoadingPercent(90);
+    }, 100);
 
-      // Interpolate for smoothness
-      const diff = target - currentProgress;
-      if (diff > 0.5) {
-        currentProgress += diff * 0.1;
-        setLoadingProgress(currentProgress);
-        requestAnimationFrame(updateProgress);
-      } else if (target === 100) {
-        setLoadingProgress(100);
-      } else {
-        requestAnimationFrame(updateProgress);
-      }
-    };
-
-    // Preload Logic
-    const preloadImage = (src) => {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = () => resolve();
-        img.onerror = () => resolve(); // proceed even if fails
-      });
-    };
-
-    // Start tracking
-    requestAnimationFrame(updateProgress);
-
-    // Wait for Window and Images
-    const handleLoad = async () => {
-      await Promise.all(imagePaths.map(preloadImage));
-      imagesLoaded = imagePaths.length;
-    };
-
-    // Check if already loaded (for refresh)
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
-    }
-
-    return () => window.removeEventListener("load", handleLoad);
+    return () => clearTimeout(startTimer);
   }, []);
 
-  // 3. Handle End of Loading Bar
+  // Framer Motion `onAnimationComplete` helper
+  // This triggers every time the bar finishes a movement phase
   const handleBarAnimationComplete = () => {
-    // Only proceed if our state tracking says we really hit 100%
-    if (loadingProgress >= 99) {
-      setLoadingComplete(true);
-      // Start the text disappear animation immediately
-      setTimeout(() => setExitAnimationStarted(true), 100);
+    // PHASE 1: We hit 90%
+    if (loadingPercent === 90) {
+      console.log("Reached 90%. Waiting 3 seconds...");
 
-      // After text disappears, notify parent to Switch pages
+      setTimeout(() => {
+        // After 3 seconds, fill to 100%
+        setLoadingPercent(100);
+      }, 3000);
+    }
+
+    // PHASE 2: We hit 100%
+    else if (loadingPercent === 100) {
+      console.log("Loading complete. Exiting...");
+
+      // Trigger the "Disappear" animations
+      setExitPhase(true);
+
+      // Wait for disappear animation to finish visually, then unmount
       setTimeout(() => {
         onComplete();
-      }, 1500); // 1.5s delay gives time for text to slide up and fade
+      }, 1000);
     }
   };
 
   return (
     <motion.div
-      // High Z-Index to cover everything
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black px-4"
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.8 }}
+      exit={{ opacity: 0, transition: { duration: 0.8 } }} // Fade out black background
     >
       <div className="flex flex-col items-center w-full max-w-5xl">
         {/* LOGO */}
         <motion.div
           className="mb-8 w-[150px] md:w-[200px] brightness-0 invert"
-          // Slide up and disappear when exit phase starts
-          animate={
-            exitAnimationStarted ? { y: -50, opacity: 0 } : { y: 0, opacity: 1 }
-          }
-          transition={{ duration: 0.8 }}
+          variants={logoVariants}
+          initial="initial"
+          animate={exitPhase ? "exit" : "enter"}
         >
           <img src={Logo} alt="Logo" className="w-full h-auto object-contain" />
         </motion.div>
 
         {/* TEXT CONTAINER */}
-        <div className="overflow-hidden mb-12 text-center h-[100px] flex items-center">
+        <div className="overflow-hidden mb-12 text-center h-[120px] flex items-center justify-center">
           <motion.h1
-            className="text-white text-xl md:text-3xl font-bold tracking-[0.15em]"
+            className="text-white text-xl md:text-3xl font-bold tracking-[0.15em] flex flex-wrap justify-center"
             variants={containerVariants}
             initial="initial"
-            // Trigger stagger animation when loading is technically "done"
-            animate={exitAnimationStarted ? "exit" : "initial"}
+            animate={exitPhase ? "exit" : "enter"}
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             {text.split(" ").map((word, i) => (
@@ -152,15 +145,23 @@ const IntroLoader = ({ onComplete }) => {
         {/* LOADING BAR */}
         <motion.div
           className="w-full max-w-md h-[2px] bg-gray-900 rounded-full overflow-hidden"
-          animate={{ opacity: exitAnimationStarted ? 0 : 1 }}
-          transition={{ duration: 0.5 }}
+          // When exitPhase is true, fade the bar out
+          animate={{ opacity: exitPhase ? 0 : 1 }}
+          transition={{ duration: 0.3 }}
         >
-          {/* We animate width based on state `loadingProgress` */}
+          {/* THE WHITE BAR */}
           <motion.div
             className="h-full bg-white"
             initial={{ width: "0%" }}
-            animate={{ width: `${loadingProgress}%` }}
-            transition={{ type: "spring", stiffness: 50, damping: 20 }}
+            // State drives the width (0 -> 90 -> 100)
+            animate={{ width: `${loadingPercent}%` }}
+            // Dynamic Transition:
+            // Going to 90? take 1.5s (simulated load).
+            // Going to 100? take 0.5s (fast finish).
+            transition={{
+              duration: loadingPercent === 90 ? 2 : 0.5,
+              ease: "easeInOut",
+            }}
             onAnimationComplete={handleBarAnimationComplete}
           />
         </motion.div>

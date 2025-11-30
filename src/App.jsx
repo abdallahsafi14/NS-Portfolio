@@ -17,14 +17,13 @@ const AppContent = () => {
   const location = useLocation();
 
   const handleIntroComplete = () => {
-    // The Loader has finished its "Disappear" animations.
-    // Now we switch the state to show the Homepage.
+    // Called after the loader reaches 100% -> Exit Anim -> Faded Out
     setIntroFinished(true);
     window.scrollTo(0, 0);
   };
 
   useEffect(() => {
-    // Block scroll while Intro is active on home page
+    // Prevent scrolling while intro is visible
     if (!introFinished && location.pathname === "/") {
       document.body.style.overflow = "hidden";
     } else {
@@ -35,32 +34,27 @@ const AppContent = () => {
   return (
     <>
       <AnimatePresence mode="wait">
-        {/* IF NOT FINISHED, SHOW LOADER */}
+        {/* Render the Intro Loader only if we haven't finished yet */}
         {!introFinished && location.pathname === "/" && (
           <IntroLoader key="intro" onComplete={handleIntroComplete} />
         )}
       </AnimatePresence>
 
       <Routes>
-        {/* 
-            CORE FIX: 
-            Check logic here: if we are not finished (!introFinished), 
-            we render null or a div. We do NOT render LandingPage.
-            When state changes to true, LandingPage mounts and 
-            Hero animations start automatically.
-        */}
         <Route
           path="/"
           element={
+            // Show Home Page ONLY after Intro is done
             introFinished ? (
               <LandingPage />
             ) : (
-              <div className="bg-black min-h-screen" />
+              // Empty container to act as background layer while loading
+              <div className="bg-black min-h-screen w-full" />
             )
           }
         />
 
-        {/* Other pages can render immediately or independently */}
+        {/* Detail Pages render normally */}
         <Route path="/projects/:id" element={<ProjectDetails />} />
       </Routes>
     </>
